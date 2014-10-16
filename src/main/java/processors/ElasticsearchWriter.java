@@ -14,10 +14,14 @@ public class ElasticsearchWriter extends BufferProcessor {
 
     Client es;
     int counter = 0;
+    String index;
+    String type;
 
-    public ElasticsearchWriter(){
+    public ElasticsearchWriter(String host){
         this.es = new TransportClient()
-                .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
+                .addTransportAddress(new InetSocketTransportAddress(host, 9300));
+        this.index = "index";
+        this.type = "pages";
     }
 
     @Override
@@ -26,7 +30,7 @@ public class ElasticsearchWriter extends BufferProcessor {
             System.out.println(counter + " documents saved." );
 
         try {
-            IndexResponse response = this.es.prepareIndex("test", "test")
+            IndexResponse response = this.es.prepareIndex(this.index, this.type)
                     .setSource(this.makeJSONStr(buffer))
                     .execute()
                     .actionGet();
