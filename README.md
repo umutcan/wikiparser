@@ -21,7 +21,7 @@ You can check the [Elasticsearch setup document](http://www.elasticsearch.org/gu
 
 You can build this project easily by using Maven2:
 
-``mvn clean package``
+    mvn clean package
 
 This command create ``wikiparser-1.0-SNAPSHOT.jar`` under the ``target`` folder.
 
@@ -30,4 +30,4 @@ This command create ``wikiparser-1.0-SNAPSHOT.jar`` under the ``target`` folder.
 
 After building .jar file, you can run program with following command:
 
-``java -cp /path/to/wikiparser-1.0-SNAPSHOT.jar Main <path>``
+    java -cp /path/to/wikiparser-1.0-SNAPSHOT.jar Main <path>
