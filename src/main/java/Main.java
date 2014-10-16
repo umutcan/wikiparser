@@ -30,8 +30,7 @@ public class Main {
              * that is created in custom event handler class for SAXParser.
              * It creates an JSON String from buffer and writes it to Elasticsearch.
              */
-//            BufferProcessor processor = new ElasticsearchWriter();
-            BufferProcessor processor = new RandomWriter();
+            BufferProcessor processor = new ElasticsearchWriter();
 
             /**
              * A custom event handler class for SAXParser.
