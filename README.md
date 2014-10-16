@@ -4,7 +4,7 @@ wikiparser
 A tool for extracting data from Wikipedia XML Dumps. 
 
 
-==Requirements== 
+## Requirements
 
 This project is written in Java 7. It requires [Elasticsearch Java Client](http://www.elasticsearch.org/guide/en/elasticsearch/client/java-api/current/index.html), 
 [json.org JSON](http://www.json.org/java/index.html) library 
@@ -17,7 +17,7 @@ So, a local Elasticsearch is required.
 You can check the [Elasticsearch setup document](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html)
 
 
-==Building Project==
+## Building Project
 
 You can build this project easily by using Maven2:
 
@@ -26,7 +26,7 @@ You can build this project easily by using Maven2:
 This command create ``wikiparser-1.0-SNAPSHOT.jar`` under the ``target`` folder.
 
 
-==Running Project==
+## Running Project
 
 After building .jar file, you can run program with following command:
 
