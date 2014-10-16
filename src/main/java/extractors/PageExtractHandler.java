@@ -16,14 +16,21 @@ import processors.BufferProcessor;
  */
 public class PageExtractHandler extends DefaultHandler {
 
-    String buf = "";
-    Boolean pageStarted = false;
-    Boolean isNsTag = false;
-    int counter = 0;
-    BufferProcessor processor;
+    /**
+     * When processing large files in a loop,
+     * String.concat()(+ operator) causes performance overhead
+     * due to immutable nature of String objects in Java.
+     * So a StringBuffer buffer is used instead of a String buffer.
+     */
+    private StringBuffer buf;
+    private Boolean pageStarted = false;
+    private Boolean isNsTag = false;
+    private BufferProcessor processor;
 
     public PageExtractHandler(BufferProcessor processor){
+
         this.processor = processor;
+        this.buf = new StringBuffer();
     }
 
     @Override
@@ -50,17 +57,16 @@ public class PageExtractHandler extends DefaultHandler {
          */
         if (qName.equalsIgnoreCase("page")) {
             this.pageStarted = true;
-            this.counter++;
         } else if(qName.equalsIgnoreCase("ns")){
             if(this.pageStarted)
                 this.isNsTag = true;
-                buf += "<" + qName + ">";
+                buf.append("<" + qName + ">");
         } else {
             /**
              * start the tag if element is a child of page element
              */
             if (this.pageStarted) {
-                buf += "<" + qName + ">";
+                buf.append( "<" + qName + ">");
             }
         }
     }
@@ -75,28 +81,28 @@ public class PageExtractHandler extends DefaultHandler {
             if(this.pageStarted){
                 this.pageStarted = false;
                 processor.process(buf);
-
             }
-//            if(this.counter == 1000)
-//                throw new SAXException("done");
             // empty the bufffer
-            this.buf = "";
+            this.buf = new StringBuffer();
         } else if(qName.equalsIgnoreCase("ns")){
             if(this.pageStarted)
                 this.isNsTag = false;
-            buf += "</" + qName + ">";
+            buf.append("</" + qName + ">");
         } else {
             /**
              * close the tag if it is a child of page
              */
             if (this.pageStarted) {
-                buf += "</" + qName + ">";
+                buf.append("</" + qName + ">");
             }
         }
     }
 
-    // To take specific actions for each chunk of character data (such as
-    // adding the data to a node or buffer, or printing it to a file).
+    /**
+     * To take specific actions for each chunk of character data (such as
+     * adding the data to a node or buffer, or printing it to a file).
+     */
+
     @Override
     public void characters(char ch[], int start, int length)
             throws SAXException {
@@ -112,7 +118,7 @@ public class PageExtractHandler extends DefaultHandler {
             /**
              * adding char array to buffer only if page tag is open
              */
-            this.buf += StringEscapeUtils.escapeXml11(new String(ch, start, length));
+            this.buf.append(StringEscapeUtils.escapeXml11(new String(ch, start, length)));
         }
 
     }

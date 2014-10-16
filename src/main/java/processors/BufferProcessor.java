@@ -9,7 +9,7 @@ import org.json.XML;
  */
 public abstract class BufferProcessor {
 
-    public abstract void process(String buffer);
+    public abstract void process(StringBuffer buffer);
 
     protected String makeJSONStr(String xmlStr) throws JSONException {
         JSONObject xmlJSONObj = XML.toJSONObject(xmlStr);
