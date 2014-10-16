@@ -20,7 +20,7 @@ public class ElasticsearchWriter extends BufferProcessor {
     public ElasticsearchWriter(String host){
         this.es = new TransportClient()
                 .addTransportAddress(new InetSocketTransportAddress(host, 9300));
-        this.index = "index";
+        this.index = "wiki";
         this.type = "pages";
     }
 
