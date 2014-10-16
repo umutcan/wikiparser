@@ -1,13 +1,8 @@
 import extractors.PageExtractHandler;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.XML;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import processors.BufferProcessor;
 import processors.ElasticsearchWriter;
-import processors.RandomWriter;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
