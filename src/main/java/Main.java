@@ -13,6 +13,14 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         try {
+            String xmlFilePath = "";
+            if(args.length == 1){
+                xmlFilePath = args[0];
+            } else {
+                System.out.println("Path for XML dump file is required.Usage:\n" +
+                        "\tjava -cp target/wikiparser-1.0-SNAPSHOT.jar Main <path>");
+                System.exit(1);
+            }
             /**
              * SAX (Simple API for XML) is used to parse Wikipedia XML Dump.
              * Its event based API is more suitable to parse large XML file
@@ -25,7 +33,7 @@ public class Main {
              * that is created in custom event handler class for SAXParser.
              * It creates an JSON String from buffer and writes it to Elasticsearch.
              */
-            BufferProcessor processor = new ElasticsearchWriter();
+            BufferProcessor processor = new ElasticsearchWriter("localhost");
 
             /**
              * A custom event handler class for SAXParser.
@@ -33,7 +41,7 @@ public class Main {
              */
             DefaultHandler handler = new PageExtractHandler(processor);
             System.out.println("Starting to parse XML dump ");
-            parser.parse("/home/umutcan/Downloads/enwiki-20140903-pages-articles.xml", handler);
+            parser.parse(xmlFilePath, handler);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
